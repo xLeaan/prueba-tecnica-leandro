@@ -2,31 +2,31 @@
 
 newgrp docker
 
- - PROBAR INVENTARIO Y PRODUCTOS (Postgres)
-      docker exec -it ecommerce_postgres psql -U postgres -d ecommerce_inventory
-      SELECT * FROM product
-      SELECT * FROM inventory
+ - PROBAR INVENTARIO Y PRODUCTOS (Postgres):
+      - docker exec -it ecommerce_postgres psql -U postgres -d ecommerce_inventory
+      - SELECT * FROM product
+      - SELECT * FROM inventory
 
- - PROBAR ORDENES(Mongo)
-      docker exec -it ecommerce_mongodb mongosh -u admin -p admin123 --authenticationDatabase admin
-      cambiar a la bd:
-      use ecommerce_orders;
-      db.orders.find().pretty();
+ - PROBAR ORDENES(Mongo):
+      - docker exec -it ecommerce_mongodb mongosh -u admin -p admin123 --authenticationDatabase admin
+      ### cambiar a la bd:
+      - use ecommerce_orders;
+      - db.orders.find().pretty();
 
 
- - VERIFICAR LOS TOPICS DE KAFKA: (verificado, ya existe)
-      docker exec -it ecommerce_kafka kafka-topics \
+ - VERIFICAR LOS TOPICS DE KAFKA: (verificado, ya existe):
+      - docker exec -it ecommerce_kafka kafka-topics \
       --bootstrap-server kafka:29092 \
       --create --topic order-events \
       --partitions 3 --replication-factor 1
 
- - INSTALAR PROTO Y GENERAR EL ARCHIVO PY(Linux)
-      sudo apt install -y python3-protobuf python3-psycopg2 python3-pymongo python3-confluent-kafka
-      protoc -I=. --python_out=generated proto/order_events.proto
+ - INSTALAR PROTO Y GENERAR EL ARCHIVO PY de order_events(Linux):
+      - sudo apt install -y python3-protobuf python3-psycopg2 python3-pymongo python3-confluent-kafka
+      - protoc -I=. --python_out=generated proto/order_events.proto
 
 (Opcional, en el código ya está agregado este topic)
 ### CREAR TOPIC en caso de fallo silencioso
-docker exec ecommerce_kafka kafka-topics \
+- docker exec ecommerce_kafka kafka-topics \
   --bootstrap-server localhost:9092 \
   --create --topic order-events \
   --partitions 3 \
