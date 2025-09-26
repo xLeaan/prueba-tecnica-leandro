@@ -6,12 +6,16 @@ from google.protobuf.timestamp_pb2 import Timestamp
 from generated import order_events_pb2 as order_pb2
 import uuid
 import pymongo
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # ------------------------
 # Configuración MongoDB
 # ------------------------
-MONGO_URI = "mongodb://admin:admin123@localhost:27017/"
-MONGO_DB = "ecommerce_orders"
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB = os.getenv("MONGO_DB")
 
 mongo_client = pymongo.MongoClient(MONGO_URI)
 mongo_db = mongo_client[MONGO_DB]
